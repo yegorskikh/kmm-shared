@@ -6,7 +6,27 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9746DFA12DFDB3510052124B /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9746DF9F2DFDB3320052124B /* shared.xcframework */; };
+		9746DFA22DFDB3510052124B /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9746DF9F2DFDB3320052124B /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9746DFA32DFDB3510052124B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9746DFA22DFDB3510052124B /* shared.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		9746DF9F2DFDB3320052124B /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = shared.xcframework; sourceTree = "<group>"; };
 		B9DA97B12DC1472C00A4DA20 /* kmm_shared.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kmm_shared.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -41,17 +61,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9746DFA12DFDB3510052124B /* shared.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9746DF9E2DFDB3320052124B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9746DFA02DFDB3320052124B /* release */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9746DFA02DFDB3320052124B /* release */ = {
+			isa = PBXGroup;
+			children = (
+				9746DF9F2DFDB3320052124B /* shared.xcframework */,
+			);
+			name = release;
+			path = ../shared/build/XCFrameworks/release;
+			sourceTree = "<group>";
+		};
 		B9DA97A82DC1472C00A4DA20 = {
 			isa = PBXGroup;
 			children = (
 				B9DA98002DC14AA900A4DA20 /* Configuration */,
 				B9DA97B32DC1472C00A4DA20 /* iosApp */,
+				9746DF9E2DFDB3320052124B /* Frameworks */,
 				B9DA97B22DC1472C00A4DA20 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,6 +114,7 @@
 				B9DA97AD2DC1472C00A4DA20 /* Sources */,
 				B9DA97AE2DC1472C00A4DA20 /* Frameworks */,
 				B9DA97AF2DC1472C00A4DA20 /* Resources */,
+				9746DFA32DFDB3510052124B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

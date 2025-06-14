@@ -1,5 +1,5 @@
 
-import Shared
+import shared
 import SwiftUI
 
 struct EpisodesListView: View {
@@ -29,7 +29,7 @@ struct EpisodesListView: View {
                 } else {
                     List(viewModel.episodes, id: \.id) { episode in
                         VStack(alignment: .leading) {
-                            Text(episode.name)
+                            Text(episode.name ?? "")
                                 .font(.headline)
                             Text("Episode: \(episode.episode ?? "-")")
                                 .font(.subheadline)

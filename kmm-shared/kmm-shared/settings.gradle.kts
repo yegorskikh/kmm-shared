@@ -1,30 +1,22 @@
 rootProject.name = "kmm-shared"
-include(":shared")
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
+    plugins {
+        id("com.android.library") version "8.4.2"
+        id("org.jetbrains.kotlin.multiplatform") version "2.1.21"
+        id("org.jetbrains.kotlin.plugin.serialization") version "2.1.21"
+    }
     repositories {
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
-        mavenCentral()
         gradlePluginPortal()
+        google()
+        mavenCentral()
     }
 }
 
 dependencyResolutionManagement {
     repositories {
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
+        gradlePluginPortal()
+        google()
         mavenCentral()
     }
 }

@@ -1,38 +1,29 @@
-/* ---------- imports: без них XCFramework и KotlinNativeTarget не видны ---------- */
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.serializationPlugin)
+    kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("org.openapi.generator") version "7.13.0"
 }
 
 tasks.named<GenerateTask>("openApiGenerate") {
-    generatorName.set("shared")
+    generatorName.set("kotlin")
     library.set("multiplatform")
     inputSpec.set("${rootDir}/api/recipepuppy_openapi.yaml")
     outputDir.set("${rootDir}/generated")
-    additionalProperties.set(
-        mapOf(
-            "dateLibrary" to "kotlinx-datetime"
-        )
-    )
+    additionalProperties.set(mapOf("dateLibrary" to "kotlinx-datetime"))
 }
 
 kotlin {
-    /* ---------- iOS + Android targets ---------- */
-    androidTarget()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
-    // Подключение папки с автогенерированным кодом в общий sourceSet
     sourceSets["commonMain"].kotlin.srcDir("$rootDir/generated/src/commonMain/kotlin")
 
-    /* ---------- агрегатор .xcframework ---------- */
-    val sharedXcf = XCFramework()
+    val sharedXcf = XCFramework("shared")
 
     targets.withType<KotlinNativeTarget>().configureEach {
         binaries.framework {
@@ -44,14 +35,13 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.content.negotiation)
-                implementation(libs.ktor.serialization.kotlinx.json)
-                implementation(libs.kotlinx.serialization.json)
-                implementation("io.ktor:ktor-client-darwin:3.0.3")
+                implementation("io.ktor:ktor-client-core:2.3.5")
+                implementation("io.ktor:ktor-client-content-negotiation:2.3.5")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+                implementation("io.ktor:ktor-client-darwin:2.3.5")
             }
         }
-        val androidMain by getting { dependencies { implementation(libs.ktor.client.okhttp) } }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -64,13 +54,6 @@ kotlin {
     }
 }
 
-/* опционально: убираем ворчание о default-template */
 gradle.projectsEvaluated {
     rootProject.extensions.extraProperties["kotlin.mpp.applyDefaultHierarchyTemplate"] = "false"
-}
-
-android {
-    namespace = "com.example.shared"
-    compileSdk = 34
-    defaultConfig { minSdk = 24 }
 }
