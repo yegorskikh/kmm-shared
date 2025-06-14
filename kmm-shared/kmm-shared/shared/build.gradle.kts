@@ -13,7 +13,12 @@ tasks.named<GenerateTask>("openApiGenerate") {
     library.set("multiplatform")
     inputSpec.set("${rootDir}/api/recipepuppy_openapi.yaml")
     outputDir.set("${rootDir}/generated")
-    additionalProperties.set(mapOf("dateLibrary" to "kotlinx-datetime"))
+    additionalProperties.set(
+        mapOf(
+            "dateLibrary" to "kotlinx-datetime",
+            "serializationLibrary" to "kotlinx_serialization"
+        )
+    )
 }
 
 kotlin {
