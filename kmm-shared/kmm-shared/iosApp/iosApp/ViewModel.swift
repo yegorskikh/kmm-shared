@@ -18,8 +18,9 @@ class EpisodesViewModel: ObservableObject {
     func fetchEpisodes() async {
         isLoading = true
         do {
-            let response = try await ApiFactory().getApi().episodeGet()
-            episodes = response.response ?? []
+            let response: HttpResponse<EpisodesResponse> = try await ApiFactory().getApi().episodeGet()
+            let episodesResponse = try await response.body().results
+            self.episodes = episodesResponse ?? []
         } catch {
             print("Ошибка загрузки эпизодов:", error)
         }
@@ -28,7 +29,7 @@ class EpisodesViewModel: ObservableObject {
 
     func sort() {
         sortAscending.toggle()
-        episodes.sort { sortAscending ? $0.name < $1.name : $0.name > $1.name }
+//        episodes.sort { sortAscending ? $0.name < $1.name : $0.name > $1.name }
     }
 }
 
