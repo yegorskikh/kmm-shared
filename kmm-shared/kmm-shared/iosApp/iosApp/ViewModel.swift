@@ -29,7 +29,7 @@ class EpisodesViewModel: ObservableObject {
 
     func sort() {
         sortAscending.toggle()
-//        episodes.sort { sortAscending ? $0.name < $1.name : $0.name > $1.name }
+        episodes.sort { sortAscending ? $0.name ?? "" < $1.name ?? "" : $0.name ?? "" > $1.name ?? "" }
     }
 }
 
